@@ -5,11 +5,14 @@
 }
 <h4 class="text-center">@ViewBag.Status</h4>
 <div class="modal" id="login_popup" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
+    <div class="modal-dialog" style="padding-top:6em;">
+        <div class="modal-content" >
+            <div class="modal-body" >
                 <button type="button" class="close" style="font-size:xx-large;" data-dismiss="modal">X</button>
-                <h3 class="text-center pl-4 mb-3">Please Login!</h3>
+                <div class="text-center">
+                    <h4 class="pb-3">Please Login!</h4>
+                    <img src="~/images/login.png" id="registerGraphic" style="height:15%;width:15%;padding-bottom:5%;" /><br />
+                </div>
                 <section>
                     <form asp-controller="Login" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
                         <div class="form-group ml-2 mt-2">

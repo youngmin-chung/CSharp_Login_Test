@@ -152,8 +152,8 @@ $.validator.addMethod( "bic", function( value, element ) {
  * Where:
  *
  * T: 1 character. Kind of Organization Letter: [ABCDEFGHJKLMNPQRSUVW]
- * P: 2 characters. Province.
- * N: 5 characters. Secuencial Number within the province.
+ * P: 2 characters. Region.
+ * N: 5 characters. Secuencial Number within the Region.
  * C: 1 character. Control Digit: [0-9A-J].
  *
  * [ T ]: Kind of Organizations. Possible values:
@@ -174,7 +174,7 @@ $.validator.addMethod( "bic", function( value, element ) {
  *   P. Local authorities
  *   Q. Autonomous bodies, state or not, and the like, and congregations and religious institutions
  *   R. Congregations and religious institutions (since 2008 ORDER EHA/451/2008)
- *   S. Organs of State Administration and regions
+ *   S. Organs of State Administration and Regions
  *   V. Agrarian Transformation
  *   W. Permanent establishments of non-resident in Spain
  *
@@ -902,33 +902,33 @@ $.validator.addMethod( "phoneUS", function( phone_number, element ) {
 * 99.999-999
 * 99999999
 */
-$.validator.addMethod( "postalcodeBR", function( cep_value, element ) {
+$.validator.addMethod( "MailcodeBR", function( cep_value, element ) {
 	return this.optional( element ) || /^\d{2}.\d{3}-\d{3}?$|^\d{5}-?\d{3}?$/.test( cep_value );
 }, "Informe um CEP válido." );
 
 /**
  * Matches a valid Canadian Postal Code
  *
- * @example jQuery.validator.methods.postalCodeCA( "H0H 0H0", element )
+ * @example jQuery.validator.methods.MailcodeCA( "H0H 0H0", element )
  * @result true
  *
- * @example jQuery.validator.methods.postalCodeCA( "H0H0H0", element )
+ * @example jQuery.validator.methods.MailcodeCA( "H0H0H0", element )
  * @result false
  *
- * @name jQuery.validator.methods.postalCodeCA
+ * @name jQuery.validator.methods.MailcodeCA
  * @type Boolean
  * @cat Plugins/Validate/Methods
  */
-$.validator.addMethod( "postalCodeCA", function( value, element ) {
+$.validator.addMethod( "MailcodeCA", function( value, element ) {
 	return this.optional( element ) || /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] *\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i.test( value );
 }, "Please specify a valid postal code" );
 
 /* Matches Italian postcode (CAP) */
-$.validator.addMethod( "postalcodeIT", function( value, element ) {
+$.validator.addMethod( "MailcodeIT", function( value, element ) {
 	return this.optional( element ) || /^\d{5}$/.test( value );
 }, "Please specify a valid postal code" );
 
-$.validator.addMethod( "postalcodeNL", function( value, element ) {
+$.validator.addMethod( "MailcodeNL", function( value, element ) {
 	return this.optional( element ) || /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/.test( value );
 }, "Please specify a valid postal code" );
 

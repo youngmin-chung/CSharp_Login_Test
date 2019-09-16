@@ -1,11 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<h4 class="pb-3 text-center">Home</h4>
-<div class="m-3 font-weight-bold h2 text-center">
-    @if (ViewBag.Message != null)
-    {
-        ViewBag.Message = ViewBag.Message.Replace("\"", "");
-    }
-    @ViewBag.Message
+<div class="text-center">
+    <h4 class="pb-3">Home</h4>
+    <a href='@Url.Action("Index", "Login")'><img src="~/images/home.png" style="height:95px;width:115px;" /></a>
+    <h5>
+        <a href='@Url.Action("Index", "Login")'>
+            @if (ViewBag.Message != null)
+        {
+            ViewBag.Message = ViewBag.Message.Replace("\"", "");
+        }
+            @ViewBag.Message
+        </a>
+        
+    </h5>
 </div>

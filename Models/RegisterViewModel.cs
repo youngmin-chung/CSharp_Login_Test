@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Login_process_test.Models
 {
@@ -29,12 +25,14 @@ namespace Login_process_test.Models
         public string Address1 { get; set; }
         [Required(ErrorMessage = "City is required.")]
         public string City { get; set; }
-        [RegularExpression(@"[a-zA-z]\d[a-zA-Z]-\d[a-zA-Z]\d", ErrorMessage = "Invalid format")]
-        [Required(ErrorMessage = "Enter a proper Postal Code")]
-        public string Postalcode { get; set; }
+        [RegularExpression(@"[a-zA-z]\d[a-zA-Z]\d[a-zA-Z]\d", ErrorMessage = "Invalid format")]
+        [Required(ErrorMessage = "Enter a proper ZIP/Postal Code")]
+        public string Mailcode { get; set; }
         [Required(ErrorMessage = "Country is required.")]
         public string Country { get; set; }
-        [Required(ErrorMessage = "Region is required.")]
+        [Required(ErrorMessage = "Credit Card is required.")]
+        public string CreditcardType { get; set; }
+        [Required(ErrorMessage = "State/Province is required.")]
         public string Region { get; set; }
     }
 }

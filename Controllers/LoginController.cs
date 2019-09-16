@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Login_process_test.Data;
-using Login_process_test.Models;
-using Login_process_test.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Login_process_test.Utils;
+using Microsoft.AspNetCore.Identity;
+using Login_process_test.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Login_process_test.Controllers
 {
@@ -20,6 +18,7 @@ namespace Login_process_test.Controllers
             _signInMgr = signInManager;
             _usrMgr = userManager;
         }
+        [AllowAnonymous]
         public ActionResult Index(string ReturnUrl = null)
         {
             if (HttpContext.Session.Get(SessionVariables.LoginStatus) == null)
@@ -38,6 +37,7 @@ namespace Login_process_test.Controllers
         //
         // POST: /Account/Login
         //
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -68,6 +68,15 @@ namespace Login_process_test.Controllers
             // If we got this far, something failed, redisplay form
             return RedirectToLocal(returnUrl);
         }
+
+        public async Task<IActionResult> Logoff()
+        {
+            await _signInMgr.SignOutAsync();
+            HttpContext.Session.Clear();
+            HttpContext.Session.SetString(SessionVariables.LoginStatus, "not logged in");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -78,13 +87,6 @@ namespace Login_process_test.Controllers
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
-        }
-        public async Task<IActionResult> Logoff()
-        {
-            await _signInMgr.SignOutAsync();
-            HttpContext.Session.Clear();
-            HttpContext.Session.SetString(SessionVariables.LoginStatus, "not logged in");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

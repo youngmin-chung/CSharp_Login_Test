@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Login_process_test.Data;
-using Login_process_test.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Login_process_test.Models;
+using Login_process_test.Utils;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using System.Text.Encodings.Web;
 
 namespace Login_process_test.Controllers
 {
@@ -29,22 +24,37 @@ namespace Login_process_test.Controllers
             _signInMgr = signInManager;
             _emailSender = emailSender;
         }
+
         [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        //[BindProperty]
-        //public RegisterViewModel Input { get; set; }
-
         // POST:/Register/Register
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var appUser = new ApplicationUser
+                //var appUser = new ApplicationUser
+                //{
+                //    UserName = model.Email,
+                //    Email = model.Email,
+                //    Firstname = model.Firstname,
+                //    Address1 = model.Address1,
+                //    City = model.City,
+                //    Lastname = model.Lastname,
+                //    Age = model.Age,
+                //    CreditcardType = model.CreditcardType.Substring(0,1),
+                //    Country = model.Country,
+                //    Region = model.Region,
+                //    Mailcode = model.Mailcode,
+
+                //};
+
+                var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
@@ -55,9 +65,8 @@ namespace Login_process_test.Controllers
                     Age = model.Age,
                     Country = model.Country,
                     Region = model.Region,
-                    Postalcode = model.Postalcode
+                    Mailcode = model.Mailcode
                 };
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var addUserResult = await _usrMgr.CreateAsync(user, model.Password);
                 if (addUserResult.Succeeded)
                 {
@@ -73,8 +82,8 @@ namespace Login_process_test.Controllers
                     await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
                     //await _signInMgr.SignInAsync(appUser, isPersistent: false);
-                    HttpContext.Session.SetString("loginstatus", model.Firstname + " is logged in");
-                    HttpContext.Session.SetString("message", "Registered, logged on as " + model.Email);
+                    //HttpContext.Session.SetString("loginstatus", model.Firstname + " is logged in");
+                    //HttpContext.Session.SetString("message", "Registered, logged on as " + model.Email);
                 }
                 else
                 {
@@ -84,7 +93,5 @@ namespace Login_process_test.Controllers
             }
             return Redirect("/Home");
         }
-
-
     }
 }

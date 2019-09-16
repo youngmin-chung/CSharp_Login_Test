@@ -36,8 +36,8 @@
             $("#City").valid();
             $("#Country").valid();
             $("#Region").valid();
-            $("#Postalcode").valid();
-            if ($("#Address1").valid() === false || $("#City").valid() === false || $("#Country").valid() === false || $("#Region").valid() === false || $("#Postalcode").valid() === false) {
+            $("#Mailcode").valid();
+            if ($("#Address1").valid() === false || $("#City").valid() === false || $("#Country").valid() === false || $("#Region").valid() === false || $("#Mailcode").valid() === false) {
                 return false; // suppress click
             }
         }
